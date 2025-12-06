@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICFOR - Mi Perfil</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <i class="material-icons menu-toggle">menu</i>
+            <span class="logo">SICFOR</span>
+        </div>
+        <div class="header-right">
+            <i class="material-icons notification-icon">notifications</i>
+            <span class="notification-badge">1</span>
+            <div class="profile-icon" onclick="document.getElementById('profile-dropdown').classList.toggle('show')">
+                 <i class="material-icons">account_circle</i>
+            </div>
+            <span class="profile-name">Juan Pérez</span>
+            <div id="profile-dropdown" class="dropdown-content">
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="dashboard.html">Panel de Control</a>
+                <a href="gestion_usuarios.html">Gestión Usuarios</a>
+                <a href="gestion_roles.html">Gestión Roles</a>
+                <a href="perfil.html">Mi Perfil</a>
+                </nav>
+        </aside>
+
+        <main class="content">
+            <h2>Mi Perfil</h2>
+            <div class="card">
+                <div class="profile-header">
+                    <div class="profile-avatar"><i class="material-icons">person</i></div>
+                    <div class="profile-info">
+                        <h3>Juan Pérez Gómez</h3>
+                        <p class="status"><i class="material-icons">fiber_manual_record</i> En línea</p>
+                        <p class="id-tag">ID: ADM-001</p>
+                    </div>
+                    <button id="editProfileBtn" class="btn primary" style="margin-left: auto;"><i class="material-icons">edit</i> Editar Perfil</button>
+                </div>
+                
+                <div class="section-title">Información Personal</div>
+                <div class="profile-details">
+                    <div class="detail-item"><label>ID Usuario:</label><span>ADM-001</span></div>
+                    <div class="detail-item"><label>Rol asignado:</label><span class="tag role-admin">Administrador</span></div>
+                    <div class="detail-item"><label>Documento:</label><span>1.234.567-8</span></div>
+                    <div class="detail-item"><label>Estado de cuenta:</label><span class="tag active">Activo</span></div>
+                    <div class="detail-item"><label>Email:</label><a href="mailto:juan.perez@sicfor.edu">juan.perez@sicfor.edu</a></div>
+                    <div class="detail-item"><label>Departamento:</label><span>Administración</span></div>
+                    <div class="detail-item"><label>Teléfono:</label><span>+57 311 223 3445</span></div>
+                    <div class="detail-item"><label>Ubicación:</label><span>Sibundoy, Putumayo</span></div>
+                    <div class="detail-item"><label>Fecha de registro:</label><span>15 de Enero, 2024</span></div>
+                </div>
+
+                <div class="section-title" style="margin-top: 30px;">Seguridad</div>
+                <button id="changePasswordBtn" class="btn secondary"><i class="material-icons">vpn_key</i> Cambiar Contraseña</button>
+                <button class="btn secondary" style="margin-left: 10px;"><i class="material-icons">security</i> Verificación en Dos Pasos</button>
+
+                <div class="section-title" style="margin-top: 30px;">Actividad Reciente</div>
+                <ul class="activity-list">
+                    <li><i class="material-icons" style="color: #2ecc71;">fiber_manual_record</i> Hoy, 10:45 - Acceso al sistema</li>
+                    <li><i class="material-icons" style="color: #2ecc71;">fiber_manual_record</i> Hoy, 10:30 - Editó usuario EST-045</li>
+                </ul>
+
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

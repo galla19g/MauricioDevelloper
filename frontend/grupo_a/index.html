@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICFOR - Ingreso al Sistema</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-circle">S</div>
+            <h1>SICFOR</h1>
+            <p>Sistema Integral de Gestión<br>Centro de Formación y Cursos</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <i class="material-icons">person</i>
+                    <input type="email" id="email" placeholder="Usuario / Email" required>
+                </div>
+                <div class="input-group">
+                    <i class="material-icons">lock</i>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Recordar sesión</label>
+                </div>
+                
+                <button type="submit" class="btn primary">INGRESAR AL SISTEMA</button>
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

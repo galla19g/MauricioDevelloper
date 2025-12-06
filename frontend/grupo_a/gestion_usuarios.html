@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICFOR - Gestión de Usuarios</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <i class="material-icons menu-toggle">menu</i>
+            <span class="logo">SICFOR</span>
+        </div>
+        <div class="header-right">
+            <i class="material-icons notification-icon">notifications</i>
+            <span class="notification-badge">1</span>
+            <div class="profile-icon" onclick="document.getElementById('profile-dropdown').classList.toggle('show')">
+                 <i class="material-icons">account_circle</i>
+            </div>
+            <span class="profile-name">Juan Pérez</span>
+             <div id="profile-dropdown" class="dropdown-content">
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="dashboard.html"><i class="material-icons">dashboard</i> Panel de Control</a>
+                <a href="gestion_usuarios.html" style="background-color: #f0f0f0; font-weight: bold;"><i class="material-icons">people</i> Gestión Usuarios</a>
+                <a href="gestion_roles.html"><i class="material-icons">lock</i> Gestión Roles</a>
+                <a href="perfil.html"><i class="material-icons">person</i> Mi Perfil</a>
+                </nav>
+        </aside>
+
+        <main class="content">
+            <div class="user-management-header">
+                <h2><i class="material-icons" style="font-size: 30px;">people</i> Gestión de Usuarios</h2>
+            </div>
+            
+            <div class="card">
+                <div class="user-management-header">
+                    <a href="agregar_usuario.html" class="btn primary"><i class="material-icons">add</i> Agregar Nuevo Usuario</a>
+
+                    <div class="search-controls">
+                        <div class="search-input">
+                            <i class="material-icons" style="color: #95a5a6;">search</i>
+                            <input type="text" placeholder="Buscar usuario..." />
+                        </div>
+                        <button class="btn secondary"><i class="material-icons">filter_list</i></button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre / ID</th>
+                                <th>Email / Teléfono</th>
+                                <th>Rol / Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="table-avatar" style="background-color: var(--color-secondary);"><i class="material-icons">person</i></div></td>
+                                <td>
+                                    <div class="user-info-cell" style="gap: 0; display: block;">
+                                        **Juan Pérez Gómez**
+                                        <span class="user-id id-tel">ID: ADM-001</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    jp@sicfor.edu
+                                    <span class="id-tel">Tel: 311 223 3445</span>
+                                </td>
+                                <td>
+                                    <span class="tag role-admin">Administrador</span><br>
+                                    <span class="tag active" style="margin-top: 5px;">Activo</span>
+                                </td>
+                                <td class="action-icons">
+                                    <i class="material-icons edit" title="Editar">edit</i>
+                                    <i class="material-icons delete" title="Eliminar" style="color: #bdc3c7; cursor: not-allowed;">delete</i>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><div class="table-avatar" style="background-color: #1abc9c;"><i class="material-icons">person</i></div></td>
+                                <td>
+                                    <div class="user-info-cell" style="gap: 0; display: block;">
+                                        **Ana López Rivera**
+                                        <span class="user-id id-tel">ID: INS-002</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    al@sicfor.edu
+                                    <span class="id-tel">Tel: 310 445 5667</span>
+                                </td>
+                                <td>
+                                    <span class="tag role-instructor">Instructor</span><br>
+                                    <span class="tag active" style="margin-top: 5px;">Activo</span>
+                                </td>
+                                <td class="action-icons">
+                                    <i class="material-icons edit" title="Editar">edit</i>
+                                    <i class="material-icons delete" title="Eliminar">delete</i>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><div class="table-avatar" style="background-color: #9b59b6;"><i class="material-icons">person</i></div></td>
+                                <td>
+                                    <div class="user-info-cell" style="gap: 0; display: block;">
+                                        **Luis Gómez Torres**
+                                        <span class="user-id id-tel">ID: EST-003</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    lg@sicfor.edu
+                                    <span class="id-tel">Tel: 312 887 7889</span>
+                                </td>
+                                <td>
+                                    <span class="tag role-student">Estudiante</span><br>
+                                    <span class="tag inactive" style="margin-top: 5px;">Inactivo</span>
+                                </td>
+                                <td class="action-icons">
+                                    <i class="material-icons edit" title="Editar">edit</i>
+                                    <i class="material-icons delete" title="Eliminar">delete</i>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td><div class="table-avatar" style="background-color: #9b59b6;"><i class="material-icons">person</i></div></td>
+                                <td>
+                                    <div class="user-info-cell" style="gap: 0; display: block;">
+                                        **María Rodríguez**
+                                        <span class="user-id id-tel">ID: EST-004</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    mr@sicfor.edu
+                                    <span class="id-tel">Tel: 315 889 9001</span>
+                                </td>
+                                <td>
+                                    <span class="tag role-student">Estudiante</span><br>
+                                    <span class="tag active" style="margin-top: 5px;">Activo</span>
+                                </td>
+                                <td class="action-icons">
+                                    <i class="material-icons edit" title="Editar">edit</i>
+                                    <i class="material-icons delete" title="Eliminar">delete</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

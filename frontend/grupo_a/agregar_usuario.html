@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICFOR - Agregar Nuevo Usuario</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <i class="material-icons menu-toggle">menu</i>
+            <span class="logo">SICFOR</span>
+        </div>
+        <div class="header-right">
+            <i class="material-icons notification-icon">notifications</i>
+            <span class="notification-badge">1</span>
+            <div class="profile-icon" onclick="document.getElementById('profile-dropdown').classList.toggle('show')">
+                 <i class="material-icons">account_circle</i>
+            </div>
+            <span class="profile-name">Juan Pérez</span>
+             <div id="profile-dropdown" class="dropdown-content">
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="dashboard.html"><i class="material-icons">dashboard</i> Panel de Control</a>
+                <a href="gestion_usuarios.html" style="background-color: #f0f0f0; font-weight: bold;"><i class="material-icons">people</i> Gestión Usuarios</a>
+                <a href="gestion_roles.html"><i class="material-icons">lock</i> Gestión Roles</a>
+                <a href="perfil.html"><i class="material-icons">person</i> Mi Perfil</a>
+                </nav>
+        </aside>
+
+        <main class="content">
+            <div class="card">
+                <h2><i class="material-icons" style="font-size: 30px;">person_add</i> Agregar Nuevo Usuario</h2>
+
+                <form id="addUserForm">
+                    
+                    <div class="photo-upload-container">
+                        <div class="photo-mockup">
+                            <i class="material-icons">photo_camera</i>
+                            <span>Click para subir foto</span>
+                            <span style="font-size: 10px;">(JPG, PNG - Max 2MB)</span>
+                        </div>
+                        <input type="file" id="userPhoto" style="display: none;" accept=".jpg,.jpeg,.png">
+                        <button type="button" class="btn secondary" onclick="document.getElementById('userPhoto').click()">Seleccionar Archivo</button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="material-icons">person_outline</i> Datos Personales</h3>
+                        <div class="form-grid">
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label for="fullName">* Nombre Completo:</label>
+                                <input type="text" id="fullName" placeholder="Ingrese el nombre completo del usuario" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userID">* ID Usuario:</label>
+                                <input type="text" id="userID" value="USR-" placeholder="USR-" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="documentID">* Documento de Identidad:</label>
+                                <input type="text" id="documentID" placeholder="Número de documento" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="material-icons">contact_mail</i> Datos de Contacto</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="email">* Email Institucional:</label>
+                                <input type="email" id="email" placeholder="usuario@sicfor.edu" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Teléfono:</label>
+                                <input type="tel" id="phone" placeholder="+57 3XX XXXX XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="material-icons">lock_open</i> Configuración de Acceso y Rol</h3>
+                        <div class="form-grid">
+                             <div class="form-group">
+                                <label for="password">* Contraseña Inicial:</label>
+                                <input type="password" id="password" value="123456" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Estado:</label>
+                                <select id="status">
+                                    <option value="active">Activo</option>
+                                    <option value="inactive">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <label>* Rol del Usuario:</label>
+                            <div class="role-selection-group">
+                                <label><input type="radio" name="role" value="admin" required> Administrador</label>
+                                <label><input type="radio" name="role" value="instructor"> Instructor</label>
+                                <label><input type="radio" name="role" value="student" checked> Estudiante</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right; margin-top: 30px;">
+                        <button type="submit" class="btn primary"><i class="material-icons">save</i> Guardar Usuario</button>
+                        <a href="gestion_usuarios.html" class="btn secondary" style="margin-left: 10px;">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

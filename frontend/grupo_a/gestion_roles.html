@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICFOR - Gestión de Roles</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <i class="material-icons menu-toggle">menu</i>
+            <span class="logo">SICFOR</span>
+        </div>
+        <div class="header-right">
+            <i class="material-icons notification-icon">notifications</i>
+            <span class="notification-badge">1</span>
+            <div class="profile-icon" onclick="document.getElementById('profile-dropdown').classList.toggle('show')">
+                 <i class="material-icons">account_circle</i>
+            </div>
+            <span class="profile-name">Juan Pérez</span>
+             <div id="profile-dropdown" class="dropdown-content">
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav>
+                <a href="dashboard.html"><i class="material-icons">dashboard</i> Panel de Control</a>
+                <a href="gestion_usuarios.html"><i class="material-icons">people</i> Gestión Usuarios</a>
+                <a href="gestion_roles.html" style="background-color: #f0f0f0; font-weight: bold;"><i class="material-icons">lock</i> Gestión Roles</a>
+                <a href="perfil.html"><i class="material-icons">person</i> Mi Perfil</a>
+                </nav>
+        </aside>
+
+        <main class="content">
+            <div class="roles-header">
+                <h2><i class="material-icons" style="font-size: 30px;">settings</i> Gestión de Roles y Permisos</h2>
+                <button class="btn primary"><i class="material-icons">add</i> Crear Nuevo Rol</button>
+            </div>
+            
+            <div class="role-list">
+                
+                <div class="card">
+                    <div class="role-header role-header-admin">
+                        <h4><i class="material-icons">admin_panel_settings</i> Administrador</h4>
+                        <div class="actions">
+                            <span class="user-count-tag">27 usuarios asignados</span>
+                            <i class="material-icons edit" style="cursor: not-allowed; color: #bdc3c7;" title="Editar">edit</i>
+                            <i class="material-icons delete" style="cursor: not-allowed; color: #bdc3c7;" title="Eliminar">delete</i>
+                        </div>
+                    </div>
+                    <div class="role-details">
+                        <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 15px;">Control total sobre la configuración, seguridad y todos los datos del sistema.</p>
+                        <div class="permissions">
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Acceso total al sistema</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Gestionar todos los usuarios</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Configurar parámetros del sistema</div>
+                            </div>
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Crear y eliminar roles</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Ver reportes completos (Finanzas, Notas)</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Gestionar copias de seguridad</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role-header role-header-instructor">
+                        <h4><i class="material-icons">person_search</i> Instructor</h4>
+                        <div class="actions">
+                            <span class="user-count-tag">18 usuarios asignados</span>
+                            <i class="material-icons edit" title="Editar Permisos">edit</i>
+                            <i class="material-icons delete" title="Eliminar Rol">delete</i>
+                        </div>
+                    </div>
+                    <div class="role-details">
+                         <div class="permissions">
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Ver listado de estudiantes</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Registrar asistencia (Grupo G)</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Asignar calificaciones (Grupo H)</div>
+                            </div>
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Subir material académico (Grupo E)</div>
+                                <div class="permission-item" style="color: var(--color-danger);"><i class="material-icons close">close</i> **Gestionar otros usuarios**</div>
+                                <div class="permission-item" style="color: var(--color-danger);"><i class="material-icons close">close</i> Modificar configuración</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role-header role-header-student">
+                        <h4><i class="material-icons">face</i> Estudiante</h4>
+                        <div class="actions">
+                            <span class="user-count-tag">200 usuarios asignados</span>
+                            <i class="material-icons edit" title="Editar Permisos">edit</i>
+                            <i class="material-icons delete" title="Eliminar Rol">delete</i>
+                        </div>
+                    </div>
+                    <div class="role-details">
+                         <div class="permissions">
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Ver cursos inscritos</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Ver calificaciones propias (Grupo H)</div>
+                                <div class="permission-item"><i class="material-icons check">check</i> Descargar certificados (Grupo I)</div>
+                            </div>
+                            <div class="permissions-column">
+                                <div class="permission-item"><i class="material-icons check">check</i> Acceder a material académico (Grupo E)</div>
+                                <div class="permission-item" style="color: var(--color-danger);"><i class="material-icons close">close</i> **Modificar datos de otros**</div>
+                                <div class="permission-item" style="color: var(--color-danger);"><i class="material-icons close">close</i> Acceder a configuración</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
