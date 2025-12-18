@@ -28,9 +28,11 @@
     <article>
       <section>
         <h3>Fotografía</h3>
-        <img id="fotoEstudiante" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%23ddd' width='150' height='150'/%3E%3Ctext fill='%23999' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ECargando...%3C/text%3E%3C/svg%3E" alt="Foto del estudiante">
+        <img id="fotoEstudiante" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Crect fill='%23ddd' width='150' height='150'/%3E%3Ctext fill='%23999' font-size='18' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3ECargando...%3C/text%3E%3C/svg%3E" alt="Foto del estudiante" style="border-radius: 50%; width: 150px; height: 150px; object-fit: cover; border: 3px solid #ddd;">
         <br>
-        <button type="button">Editar Foto</button>
+        <input type="file" id="inputFotoNueva" accept="image/*" style="display: none;">
+        <button type="button" id="btnEditarFoto">Editar Foto</button>
+        <p id="statusFoto" style="font-size: 14px; margin-top: 10px;"></p>
       </section>
 
       <section>

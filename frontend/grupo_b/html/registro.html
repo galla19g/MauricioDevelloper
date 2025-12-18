@@ -96,10 +96,15 @@
       <fieldset>
         <legend>Subida de Foto</legend>
 
-        <label for="fotografia">URL de la Fotografía:</label>
-        <input type="text" id="fotografia" name="fotografia" placeholder="https://ejemplo.com/foto.jpg">
+        <label for="fotografia">Seleccionar Fotografía:</label>
+        <input type="file" id="fotografia" name="fotografia" accept="image/*">
+        
+        <div id="preview-container" style="margin-top: 10px;">
+          <img id="preview-imagen" style="display:none; max-width: 200px; max-height: 200px; border: 2px solid #ddd; border-radius: 5px;">
+          <p id="uploading-status" style="color: #666; font-size: 14px;"></p>
+        </div>
 
-        <p><small>Nota: La subida de archivos será implementada posteriormente</small></p>
+        <p><small>Formatos aceptados: JPG, PNG, GIF (máx. 5MB)</small></p>
       </fieldset>
 
       <div>
