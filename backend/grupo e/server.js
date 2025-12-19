@@ -52,6 +52,28 @@ const uploadDisk = multer({
 const MAX_SIZE_IMAGE = 10 * 1024 * 1024; // 10 MB
 const MAX_SIZE_VIDEO = 30 * 1024 * 1024; // 30 MB
 
+// ===== FUNCIÓN PARA SANITIZAR NOMBRES DE ARCHIVO =====
+function sanitizeFilename(filename) {
+    // Remover extensión
+    let name = filename.split('.')[0];
+    
+    // Remover acentos usando NFD (descomponer) y reemplazar caracteres acentuados
+    name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    
+    // Reemplazar caracteres especiales con guiones o nada
+    name = name
+        .replace(/[^a-zA-Z0-9_-]/g, '-')  // Reemplazar caracteres especiales con guion
+        .replace(/-+/g, '-')               // Reemplazar múltiples guiones con uno solo
+        .replace(/^-+|-+$/g, '');          // Remover guiones al inicio y final
+    
+    // Si el resultado está vacío, usar timestamp
+    if (!name) {
+        name = 'archivo';
+    }
+    
+    return name.toLowerCase().substring(0, 50); // Limitar a 50 caracteres y minúsculas
+}
+
 // ===== POOL DE CONEXIÓN A BD =====
 // Se inicializa después de ejecutar initializeDatabase()
 
@@ -117,11 +139,12 @@ app.post('/api/v1/upload', uploadMemory.single('file'), async (req, res) => {
 
         // Subir a Cloudinary
         const cloudinaryPromise = new Promise((resolve, reject) => {
+            const sanitizedName = sanitizeFilename(req.file.originalname);
             const uploadStream = cloudinary.uploader.upload_stream(
                 {
                     resource_type: resourceType,
                     folder: folder,
-                    public_id: `${Date.now()}-${req.file.originalname.split('.')[0]}`
+                    public_id: `${Date.now()}-${sanitizedName}`
                 },
                 (error, result) => {
                     if (error) reject(error);

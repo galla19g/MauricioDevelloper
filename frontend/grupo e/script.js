@@ -150,9 +150,11 @@ function renderResources(type) {
             preview = `<img src="${resource.url}" alt="${resource.titulo}" class="resource-preview" onclick="openMediaModal(${resource.id}, 'image')" style="cursor: pointer;">`;
         } else if (isVideo && resource.url) {
             preview = `
-                <div class="resource-preview-video" onclick="openMediaModal(${resource.id}, 'video')" style="cursor: pointer;">
-                    <video src="${resource.url}" class="resource-preview" style="max-height: 200px;"></video>
-                    <div class="video-play-btn">▶️</div>
+                <div class="resource-preview-video">
+                    <video src="${resource.url}" class="resource-preview" style="max-height: 200px; width: 100%;" controls onclick="event.stopPropagation()" onplay="event.stopPropagation()"></video>
+                    <div class="video-play-btn" onclick="openMediaModal(${resource.id}, 'video')" style="cursor: pointer; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                        <span style="pointer-events: auto; cursor: pointer;">📺 Ver completo</span>
+                    </div>
                 </div>
             `;
         }
