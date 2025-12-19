@@ -254,8 +254,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="resource-url">URL/Enlace *</label>
-                    <input type="text" id="resource-url" required>
+                    <label for="resource-archivo">Archivo Local (Imagen/Video)</label>
+                    <input type="file" id="resource-archivo" accept="image/*,video/*" onchange="validarTamanoArchivoResource()">
+                    <small style="color: #666;">📸 Imágenes: máx 10 MB | 🎥 Videos: máx 30 MB</small>
+                    <div id="file-info-resource" style="margin-top: 8px; font-size: 12px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="resource-url">URL/Enlace (si no subes archivo)</label>
+                    <input type="text" id="resource-url" placeholder="O proporciona una URL">
                 </div>
 
                 <div class="form-group">
@@ -307,8 +314,29 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="crud-url">URL/Enlace *</label>
-                    <input type="text" id="crud-url" required>
+                    <label>☁️ Tipo de Almacenamiento</label>
+                    <div style="display: flex; gap: 20px; margin: 10px 0;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="radio" name="storage-type" value="local" checked onchange="cambiarTipoStorage()">
+                            <span style="margin-left: 8px;">💾 Local (En mi servidor)</span>
+                        </label>
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="radio" name="storage-type" value="cloudinary" onchange="cambiarTipoStorage()">
+                            <span style="margin-left: 8px;">☁️ Cloudinary (Nube)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="crud-archivo">Archivo (Imagen/Video) *</label>
+                    <input type="file" id="crud-archivo" accept="image/*,video/*" required onchange="validarTamanoArchivo()">
+                    <small style="color: #666;">📸 Imágenes: máx 10 MB | 🎥 Videos: máx 30 MB</small>
+                    <div id="file-info" style="margin-top: 8px; font-size: 12px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="crud-url">URL/Enlace (Opcional)</label>
+                    <input type="text" id="crud-url" placeholder="Si no subes archivo, proporciona una URL">
                 </div>
 
                 <div class="form-group">
@@ -324,9 +352,31 @@
         </div>
     </div>
 
+    <!-- Modal Visualización de Media -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content media-modal">
+            <div class="modal-header">
+                <h2 id="media-title">Visualización</h2>
+                <button class="modal-close" onclick="closeMediaModal()">&times;</button>
+            </div>
+
+            <div class="media-body">
+                <div id="media-container" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+                    <!-- Media se carga aquí -->
+                </div>
+
+                <div id="media-description" style="text-align: center; color: #666; margin-top: 15px; padding: 0 20px;"></div>
+
+                <div class="media-actions" style="display: flex; gap: 10px; justify-content: center; padding: 20px; border-top: 1px solid #eee;">
+                    <button class="btn btn-secondary" onclick="closeMediaModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hidden file input for import -->
     <input type="file" id="importFile" style="display: none;" accept=".json">
 
-    <script src="/SICFOR/backend/grupo e/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
