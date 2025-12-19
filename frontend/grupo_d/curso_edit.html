@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Curso - SICFOR</title>
+
+    <style>
+/* =========================
+   RESET
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   BODY CENTRADO
+========================= */
+body {
+  background: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: center;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 14px 20px;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+/* =========================
+   MAIN
+========================= */
+.container {
+  width: 1300px;
+  margin: 30px 0;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.card + .card {
+  margin-top: 25px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+.form-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #0969da;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================
+   GRID
+========================= */
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.col-md-6 {
+  flex: 1;
+}
+
+/* =========================
+   ESPACIADOS
+========================= */
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 18px; }
+.mt-4 { margin-top: 25px; }
+.mt-5 { margin-top: 35px; }
+.my-4 { margin: 25px 0; }
+
+/* =========================
+   LISTA UNIDADES
+========================= */
+.list-group {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.list-group-item {
+  padding: 8px;
+}
+
+.list-group-item input {
+  width: 200px;
+  padding: 6px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+.btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #0b5ed7;
+}
+
+.btn-outline-secondary {
+  background: #fff;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background: #f0f0f0;
+}
+
+/* =========================
+   FLEX
+========================= */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: 10px;
+}
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SICFOR</a>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="card">
+        <h5 id="formTitle" class="card-title">Editar curso</h5>
+
+        <form id="cursoForm" method="post">
+          <input type="hidden" id="cursoId">
+
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo">
+            <div class="invalid-feedback">El título es obligatorio.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+            <div class="invalid-feedback">La descripción es obligatoria.</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label for="duracion" class="form-label">Duración</label>
+              <input type="text" class="form-control" id="duracion" name="duracion">
+              <div class="invalid-feedback">La duración es obligatoria.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Modalidad</label>
+              <select class="form-select" name="modalidad" id="modalidad">
+                <option selected> -- seleccione una -- </option>
+                <option value="Virtual">Virtual</option>
+                <option value="Presencial">Presencial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <h6 class="card-title">Unidades de formación</h6>
+            <div id="unitsList" class="list-group mb-2">
+              <label class="list-group-item">
+                <input type="text" name="unidad1" id="unidad1">
+              </label>
+            </div>
+          </div>
+        </form>
+
+      <div class="d-flex justify-content-end gap-2 mt-5">
+        <a href="curso.html" class="btn btn-outline-secondary">Cancelar</a>
+        <button id="btnSubmit" type="submit" form="cursoForm" class="btn btn-primary">Guardar</button>
+      </div>
+    </main>
+
+    <script>
+      const API = 'http://localhost:8080'
+      const urlParams = new URLSearchParams(window.location.search)
+      const cursoId = urlParams.get('id')
+
+      if (!cursoId) {
+        alert('ID de curso no proporcionado')
+        window.location.href = 'curso.html'
+      }
+
+      // Cargar datos del curso
+      async function loadCurso() {
+        console.log('Cargando curso con ID:', cursoId)
+        try {
+          const res = await fetch(`${API}/api/cursos/${cursoId}`)
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          const curso = await res.json()
+          console.log('Curso cargado:', curso)
+          fillForm(curso)
+        } catch (err) {
+          console.error('Error cargando curso:', err)
+          alert('Error cargando curso')
+        }
+      }
+
+      function fillForm(curso) {
+        document.getElementById('cursoId').value = curso.id
+        document.getElementById('titulo').value = curso.titulo
+        document.getElementById('descripcion').value = curso.descripcion
+        document.getElementById('duracion').value = curso.duracion
+        document.getElementById('modalidad').value = curso.modalidad
+        document.getElementById('unidad1').value = curso.unidades_formacion || ''
+      }
+
+      // Manejar submit
+      document.getElementById('cursoForm').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        console.log('Submit triggered')
+        const formData = new FormData(e.target)
+        const data = {
+          titulo: formData.get('titulo'),
+          descripcion: formData.get('descripcion'),
+          duracion: formData.get('duracion'),
+          modalidad: formData.get('modalidad'),
+          unidades_formacion: formData.get('unidad1')
+        }
+        console.log('Datos a enviar:', data)
+
+        try {
+          const res = await fetch(`${API}/api/cursos/${cursoId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          })
+          if (!res.ok) throw new Error(await res.text())
+          alert('Curso actualizado')
+          window.location.href = 'curso.html'
+        } catch (err) {
+          alert('Error actualizando: ' + err.message)
+        }
+      })
+
+      loadCurso()
+    </script>
+  </body>
+</html>

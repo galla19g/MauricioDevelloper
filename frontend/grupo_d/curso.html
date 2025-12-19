@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SICFOR - Cursos</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin: 0; background: #f5f6f8; }
+
+    /* NAVBAR */
+    .navbar {
+      height: 55px;
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+    .nav-links { display: flex; gap: 20px; font-size: 14px; }
+    .nav-links span { cursor: pointer; color: #333; }
+    .profile { width: 32px; height: 32px; border-radius: 50%; background: #ddd; }
+
+    /* LAYOUT */
+    .container {
+      display: flex;
+      height: calc(100vh - 55px);
+      padding: 15px;
+      gap: 15px;
+    }
+
+    /* LEFT - CURSOS */
+    .courses {
+      width: 240px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      overflow-y: auto; /* SCROLL */
+    }
+    .courses h4 { margin: 5px 0 10px; font-size: 14px; }
+    .course-item {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      background: #fafafa;
+    }
+
+    .course-item.selected {
+      border-color: #0275d8;
+      background: #e9f4ff;
+    }
+
+    /* RIGHT CONTENT */
+    .content { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+
+    .box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .box-2 {
+      display: flex;
+      cursor: pointer;
+      align-items: right;
+      justify-content: right;
+      padding-bottom: 10px;
+    }
+
+    .box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .actions button {
+      font-size: 12px;
+      padding: 4px 8px;
+      margin-left: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .add { border-color: #5cb85c; color: #5cb85c; }
+    .edit { border-color: #0275d8; color: #0275d8; }
+    .delete { border-color: #d9534f; color: #d9534f; }
+
+    /* INFO */
+    .info p { margin: 5px 0; font-size: 13px; }
+
+    /* LISTADO */
+    .table-container {
+      max-height: 200px; /* SCROLL ABAJO */
+      overflow-y: auto;
+      border: 1px solid #eee;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th { background: #f8f9fa; }
+
+    .remove { color: red; cursor: pointer; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <strong>SICFOR</strong>
+    <div class="nav-links">
+      <span>Estudiantes</span>
+      <span>Instructores</span>
+      <span>Cursos</span>
+      <span>Recursos</span>
+      <span>Pagos</span>
+      <span>Asistencias</span>
+      <span>Evaluaciones</span>
+      <span>Certificaciones</span>
+      <span>Soporte</span>
+    </div>
+    <div class="profile"></div>
+  </div>
+
+  <div class="container">
+
+    <!-- CURSOS -->
+    <div class="courses" id="courses">
+      <h4>Cursos</h4>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="content">
+
+      <!-- DETALLES -->
+      <div class="box">
+        <div class="box-header">
+          <strong>Detalles del curso</strong>
+          <div class="actions">
+            <button class="add" onclick="window.location.href='curso_create.html'">
+  Añadir
+</button>
+
+<button class="edit" onclick="editarCurso()">
+  Editar
+</button>
+            <button class="delete">Eliminar</button>
+          </div>
+        </div>
+
+        <div class="info">
+          <p><strong>Título:</strong> —</p>
+          <p><strong>Descripción:</strong> —</p>
+          <p><strong>Duración:</strong> —</p>
+          <p><strong>Unidades de formación:</strong> —</p>
+          <p><strong>Modalidad:</strong> —</p>
+        </div>
+      </div>
+
+      <!-- LISTADO -->
+      <div class="box">
+        <strong>Listado</strong>
+
+        <div class="box-2">
+        <div class="actions">
+            <button class="add" onclick="window.location.href='inscribir_estudiante.html'">
+  Inscribir
+</button>
+
+</div>
+</div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre Completo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+                  <!-- ESTUDIANTES -->
+            <tbody id="estudiantes">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    // Configura la URL del backend. Ajusta el puerto si es distinto.
+    const API = 'http://localhost:8080'
+    let estudiantes_inscritos = null
+
+    async function loadCursos() {
+      try {
+        const res = await fetch(`${API}/api/cursos`)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const datos = await res.json()
+        renderCursos(datos)
+      } catch (err) {
+        console.error('Error cargando cursos:', err)
+      }
+    }
+
+    function renderCursos(cursos) {
+      const container = document.getElementById('courses')
+      if (!container) return
+      const listHtml = [
+        '<h4>Cursos</h4>',
+        ...cursos.map((curso) => {
+          const id = curso.id
+          const nombre = curso.titulo
+          return `<div class="course-item" data-curso-id="${id}">${nombre}</div>`
+        })
+      ].join('')
+      container.innerHTML = listHtml
+
+      // Selección de curso para mostrar detalles
+      container.querySelectorAll('.course-item').forEach(el => {
+        el.addEventListener('click', () => {
+          container.querySelectorAll('.course-item').forEach(x => x.classList.remove('selected'))
+          el.classList.add('selected')
+          const id = el.getAttribute('data-curso-id')
+          const curso = cursos.find(c => String(c.id) === String(id))
+          setDetalles(curso)
+          // Renderizar estudiantes inscritos del curso
+          loadEstudiantes().then(() => renderEstudiantesForCourse(id))
+        })
+      })
+    }
+
+    function setDetalles(curso) {
+      const info = document.querySelector('.info')
+      if (!info || !curso) return
+      const titulo = curso.titulo
+      const descripcion = curso.descripcion
+      const duracion = curso.duracion
+      const unidades = curso.unidades_formacion
+      const modalidad = curso.modalidad
+      info.innerHTML = `
+        <p><strong>Título:</strong> ${titulo}</p>
+        <p><strong>Descripción:</strong> ${descripcion}</p>
+        <p><strong>Duración:</strong> ${duracion}</p>
+        <p><strong>Unidades de formación:</strong> ${unidades}</p>
+        <p><strong>Modalidad:</strong> ${modalidad}</p>
+      `
+    }
+
+    function editarCurso() {
+      const selected = document.querySelector('.course-item.selected')
+      const id = selected?.getAttribute('data-curso-id')
+      if (!id) {
+        alert('Selecciona un curso de la lista')
+        return
+      }
+      window.location.href = `curso_edit.html?id=${id}`
+    }
+
+    // Eliminar curso seleccionado (usa el detalle actual)
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCursos()
+      loadEstudiantes()
+      const deleteBtn = document.querySelector('.actions .delete')
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+          const selected = document.querySelector('.course-item.selected')
+          const id = selected?.getAttribute('data-curso-id')
+          if (!id) { alert('Selecciona un curso de la lista'); return }
+          if (!confirm('¿Eliminar curso?')) return
+          try {
+            const res = await fetch(`${API}/api/cursos/${id}`, { method: 'DELETE' })
+            if (!res.ok) throw new Error(await res.text())
+            loadCursos()
+          } catch (err) {
+            alert('Error eliminando: ' + err.message)
+          }
+        })
+      }
+      })
+
+    async function loadEstudiantes() {
+      if (Array.isArray(estudiantes_inscritos)) return estudiantes_inscritos
+      try {
+        const res = await fetch(`${API}/api/estudiantes`)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const datos = await res.json()
+        estudiantes_inscritos = Array.isArray(datos) ? datos : []
+      } catch (err) {
+        console.error('Error cargando estudiantes:', err)
+        estudiantes_inscritos = []
+      }
+      return estudiantes_inscritos
+    }
+
+    function getStudentCourseId(e) {
+      if (!e) return undefined
+      const curso = e.id_curso
+      return curso
+    }
+
+    function getStudentName(e) {
+      if (!e) return '—'
+      const nombres = e.nombres 
+      return nombres
+    }
+
+    function renderEstudiantesForCourse(cursoId) {
+      const tbody = document.getElementById('estudiantes')
+      if (!tbody) return
+      const list = (estudiantes_inscritos || []).filter(e => String(getStudentCourseId(e)) === String(cursoId))
+      if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="3">Sin inscritos</td></tr>'
+        return
+      }
+      // e.id es el ID de la inscripción según tu API
+      tbody.innerHTML = list.map((e, i) => {
+        const nombre = getStudentName(e)
+          // e.id es el ID de la inscripción devuelta por /api/estudiantes
+          return `<tr><td>${i + 1}</td><td>${nombre}</td><td class="remove" data-inscripcion-id="${e.id ?? ''}">X</td></tr>`
+      }).join('')
+
+        // Eliminar inscripción usando DELETE /api/estudiantes/:id
+        tbody.querySelectorAll('.remove').forEach((cell) => {
+          cell.addEventListener('click', async () => {
+            const inscId = cell.getAttribute('data-inscripcion-id')
+            if (!inscId) { alert('No se encontró la inscripción'); return }
+            if (!confirm('¿Quitar estudiante de este curso?')) return
+            try {
+              const url = `${API}/api/estudiantes/${inscId}`
+              const res = await fetch(url, { method: 'DELETE' })
+              if (!res.ok) throw new Error(await res.text())
+              await loadEstudiantes()
+              renderEstudiantesForCourse(cursoId)
+            } catch (err) {
+              throw err
+            }
+          })
+        })
+    }
+  </script>
+</body>
+</html>

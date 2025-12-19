@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscribir Estudiante - SICFOR</title>
+
+    <style>
+/* =========================
+   RESET
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   BODY CENTRADO
+========================= */
+body {
+  background: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: center;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 14px 20px;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+/* =========================
+   MAIN
+========================= */
+.container {
+  width: 1300px;
+  margin: 30px 0;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.card + .card {
+  margin-top: 25px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+.form-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #0969da;
+}
+
+/* =========================
+   GRID
+========================= */
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.col-md-6 {
+  flex: 1;
+}
+
+/* =========================
+   ESPACIADOS
+========================= */
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 18px; }
+.mt-4 { margin-top: 25px; }
+.mt-5 { margin-top: 35px; }
+.my-4 { margin: 25px 0; }
+
+/* =========================
+   BOTONES
+========================= */
+.btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #0b5ed7;
+}
+
+.btn-outline-secondary {
+  background: #fff;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background: #f0f0f0;
+}
+
+/* =========================
+   FLEX
+========================= */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: 10px;
+}
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SICFOR</a>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="card">
+        <h5 class="card-title">Inscribir estudiante</h5>
+
+        <form id="inscripcionForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="estudiante" class="form-label">Estudiante</label>
+              <select class="form-select" id="estudiante" name="id_estudiante" required>
+                <option value="">Seleccione un estudiante</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="curso" class="form-label">Curso</label>
+              <select class="form-select" id="curso" name="id_curso" required>
+                <option value="">Seleccione un curso</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-5">
+            <a href="curso.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      const API = 'http://localhost:8080';
+
+      async function loadEstudiantes() {
+        try {
+          const response = await fetch(`${API}/api/estudiantes/list`);
+          const estudiantes = await response.json();
+          const select = document.getElementById('estudiante');
+          estudiantes.forEach(est => {
+            const option = document.createElement('option');
+            option.value = est.id;
+            option.textContent = est.nombres;
+            select.appendChild(option);
+          });
+        } catch (err) {
+          console.error('Error cargando estudiantes:', err);
+        }
+      }
+
+      async function loadCursos() {
+        try {
+          const response = await fetch(`${API}/api/cursos`);
+          const cursos = await response.json();
+          const select = document.getElementById('curso');
+          cursos.forEach(cur => {
+            const option = document.createElement('option');
+            option.value = cur.id;
+            option.textContent = cur.titulo;
+            select.appendChild(option);
+          });
+        } catch (err) {
+          console.error('Error cargando cursos:', err);
+        }
+      }
+
+      document.getElementById('inscripcionForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        try {
+          const response = await fetch(`${API}/api/estudiantes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          if (response.ok) {
+            alert('Estudiante inscrito exitosamente');
+            window.location.href = 'curso.html';
+          } else {
+            alert('Error al inscribir estudiante');
+          }
+        } catch (err) {
+          console.error('Error:', err);
+          alert('Error al inscribir estudiante');
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loadEstudiantes();
+        loadCursos();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crear Curso - SICFOR</title>
+    <style>
+
+/* =========================
+   RESET
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   BODY → CENTRADOR REAL
+========================= */
+body {
+  background: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 🔥 AQUÍ SE CENTRA TODO */
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: center;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 14px 20px;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+}
+
+/* =========================
+   MAIN CONTENIDO
+========================= */
+.container {
+  width: 1300px;
+  margin: 30px 0;
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.card + .card {
+  margin-top: 25px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+.form-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+}
+
+textarea.form-control {
+  min-height: 120px;
+}
+
+/* =========================
+   GRID
+========================= */
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.col-md-6 {
+  flex: 1;
+}
+
+/* =========================
+   ESPACIADOS
+========================= */
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 18px; }
+.mt-4 { margin-top: 25px; }
+.mt-5 { margin-top: 35px; }
+.my-4 { margin: 25px 0; }
+
+/* =========================
+   UNIDADES
+========================= */
+.list-group {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.list-group-item input {
+  width: 200px;
+  padding: 6px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+/* =========================
+   FLEX
+========================= */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: 10px;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-white border-bottom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SICFOR</a>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 id="formTitle" class="card-title">Crear curso</h5>
+
+          <form id="cursoForm" novalidate>
+            <input type="hidden" id="cursoId">
+
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="titulo" name="titulo" required placeholder="Ingrese el título del curso">
+              <div class="invalid-feedback">El título es obligatorio.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required placeholder="Breve descripción"></textarea>
+              <div class="invalid-feedback">La descripción es obligatoria.</div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="duracion" class="form-label">Duración</label>
+                <input type="text" class="form-control" id="duracion" name="duracion" placeholder="Ej: 12 horas" required>
+                <div class="invalid-feedback">La duración es obligatoria.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Modalidad</label>
+                        <label for="" class="form-label m-2"></label>
+                        <select
+                            class="form-select form-select"
+                            name="modalidad"
+                            id="modalidad"
+                        >
+                            <option selected> -- seleccione una -- </option>
+                            <option value="Virtual">Virtual</option>
+                            <option value="Presencial">Presencial</option>
+                        </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <h6 class="card-title">Unidades de formación</h6>
+            <div id="unitsList" class="list-group mb-2">
+                <label class="list-group-item"><input type="text" name="unidad1" id="unidad1"></label>
+            </div>
+          </div>
+        </div>
+            <div class=" d-flex justify-content-end gap-2 mt-5">
+            <a href="curso.html" class="btn btn-outline-secondary">Cancelar</a>
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+    </main>
+
+    <script>
+      const API = 'http://localhost:8080'
+      const form = document.getElementById('cursoForm')
+      const btnSubmit = document.getElementById('btnSubmit')
+
+      btnSubmit.addEventListener('click', async (e) => {
+        e.preventDefault()
+        
+        // Obtener valores del formulario
+        const titulo = document.getElementById('titulo').value.trim()
+        const descripcion = document.getElementById('descripcion').value.trim()
+        const duracion = document.getElementById('duracion').value.trim()
+        const modalidad = document.getElementById('modalidad').value
+        const unidad1 = document.getElementById('unidad1').value.trim()
+        
+        // Validación básica
+        if (!titulo || !descripcion || !duracion) {
+          alert('Por favor complete todos los campos obligatorios')
+          return
+        }
+        
+        if (modalidad === ' -- seleccione una -- ') {
+          alert('Por favor seleccione una modalidad')
+          return
+        }
+        
+        // Preparar datos
+        const data = {
+          titulo,
+          descripcion,
+          duracion,
+          modalidad,
+          unidades_formacion: unidad1 || ''
+        }
+        
+        try {
+          const res = await fetch(`${API}/api/cursos`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          
+          if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Error al crear curso')
+          }
+          
+          alert('Curso creado exitosamente')
+          window.location.href = 'curso.html'
+        } catch (err) {
+          console.error('Error:', err)
+          alert('Error al crear curso: ' + err.message)
+        }
+      })
+    </script>
+  </body>
+</html>
